@@ -100,9 +100,12 @@ services:
       KAFKA_REST_API_ENDPOINTS_BLOCKLIST: "api.v3.acls.*"
       KAFKA_REST_BOOTSTRAP_SERVERS: "kafka-1:9191"
       KAFKA_REST_LISTENERS: "http://0.0.0.0:9391"
-      KAFKAREST_HEAP_OPTS: "-Xms1g -Xmx1g -XX:MetaspaceSize=96m -XX:+UseG1GC \
-      -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=16M \
-      -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80"
+      KAFKAREST_HEAP_OPTS: "-Xms512M -Xmx512M -XX:MetaspaceSize=96m -XX:+UseG1GC \
+      -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -XX:G1HeapRegionSize=2M \
+      -XX:MinMetaspaceFreeRatio=50 -XX:MaxMetaspaceFreeRatio=80 \
+      -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+PreserveFramePointer \
+      -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/Users/ddimitrov/ \
+      -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=9392"
       JMX_PORT: 9392
     ports:
       - "9391:9391"

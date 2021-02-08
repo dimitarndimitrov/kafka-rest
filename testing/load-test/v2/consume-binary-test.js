@@ -6,7 +6,7 @@ import {listClusters, listTopics} from "../v3/common.js";
 export let options = {
     stages: [
         {duration: '10s', target: 100},
-        {duration: '30s', target: 100},
+        {duration: '180s', target: 2000},
         {duration: '10s', target: 0},
     ],
     setupTimeout: '10m',
@@ -37,12 +37,14 @@ export function setup() {
             }
         });
 
+    console.log("DDIMITROV " + consumers.length)
     return {clusterId, consumers, topics};
 }
 
 export default function (data) {
-    let consumer = data.consumers[__VU % data.consumers.length];
-    consumeBinary(consumer.consumerGroupId, consumer.consumerId);
+//    console.log("ddimitrov " + data.consumers.length)
+//    let consumer = data.consumers[__VU % data.consumers.length];
+//    consumeBinary(consumer.consumerGroupId, consumer.consumerId);
 }
 
 export function teardown(data) {

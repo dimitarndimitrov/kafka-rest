@@ -54,9 +54,11 @@ if [  $JMX_PORT ]; then
   KAFKAREST_JMX_OPTS="$KAFKAREST_JMX_OPTS -Dcom.sun.management.jmxremote.port=$JMX_PORT "
 fi
 
-# Generic jvm settings you want to add
+# Generic JVM settings you want to add
 if [ -z "$KAFKAREST_OPTS" ]; then
-  KAFKAREST_OPTS=""
+  # NOTE ddimitrov: Enable remote debugging, as well as dumping on OOME and preparing for JFR
+  KAFKAREST_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005\
+  -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+HeapDumpOnOutOfMemoryError"
 fi
 
 # Which java to use
@@ -68,7 +70,8 @@ fi
 
 # Memory options
 if [ -z "$KAFKAREST_HEAP_OPTS" ]; then
-  KAFKAREST_HEAP_OPTS="-Xmx256M"
+  # NOTE ddimitrov: Set heap to 512 MB, just like what Inditex had
+  KAFKAREST_HEAP_OPTS="-Xms512M -Xmx512M"
 fi
 
 # JVM performance options

@@ -6,7 +6,7 @@ import {listClusters, listTopics} from "../v3/common.js";
 export let options = {
     stages: [
         {duration: '10s', target: 100},
-        {duration: '30s', target: 100},
+        {duration: '180s', target: 2000},
         {duration: '10s', target: 0},
     ],
     setupTimeout: '10m',
@@ -15,14 +15,14 @@ export let options = {
 
 export function setup() {
     let listClustersResponse = listClusters();
-    let clusterId = randomItem(listClustersResponse.json().data).cluster_id;
+    let clusterId = randomItem(listClustersResponse.json().data).attributes.cluster_id;
 
     // Use the topics/messages from produce-binary-to-topic-test.
     let listTopicsResponse = listTopics(clusterId);
     let topics =
         listTopicsResponse.json().data
-        .filter(topic => topic.topic_name.startsWith('topic-binary-'))
-        .map(topic => topic.topic_name)
+        .filter(topic => topic.attributes.topic_name.startsWith('topic-binary-'))
+        .map(topic => topic.attributes.topic_name)
         .slice(0, 10);
 
     let consumers = [];

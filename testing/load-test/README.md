@@ -15,7 +15,7 @@ For example:
 $ k6 run v3/get-broker-test.js
 ```
 
-All tests will execute against a REST Proxy instance running on `http://localhost:9391` (this is
+All tests will execute against a REST Proxy instance running on `http://localhost:8082` (this is
 defined in `v2/common.js` and `v3/common.js`. Before running a test, make sure you have a REST Proxy
 server up and running. For a quick way of getting a development server up, see the [minimal test
 environment](

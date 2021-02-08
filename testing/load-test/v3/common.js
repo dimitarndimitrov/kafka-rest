@@ -10,13 +10,13 @@ export let thresholds = function (thresholds) {
     return Object.assign(Object.assign({}, baseThresholds), thresholds);
 }
 
-const baseUrl = 'http://localhost:9391';
+const baseUrl = 'http://localhost:8082';
 
 let listClustersRequestLatency = new Trend('ListClustersRequestLatency', true);
 let listClustersRequestCount = new Counter('ListClustersRequestCount');
 export let listClusters = function () {
     const url = `${baseUrl}/v3/clusters`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListClusters'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListClusters: Status is 200': response => response.status === 200});
@@ -29,7 +29,7 @@ let getClusterRequestLatency = new Trend('GetClusterRequestLatency', true);
 let getClusterRequestCount = new Counter('GetClusterRequestCount');
 export let getCluster = function (clusterId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetCluster'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetCluster: Status is 200': response => response.status === 200});
@@ -42,7 +42,7 @@ let searchAclsRequestLatency = new Trend('SearchAclsRequestLatency', true);
 let searchAclsRequestCount = new Counter('SearchAclsRequestCount');
 export let searchAcls = function (clusterId, params) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/acls?${formurlencode(params)}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'SearchAcls'};
     let response = http.get(url, {headers, tags});
     check(response, {'SearchAcls: Status is 200': response => response.status === 200});
@@ -68,7 +68,7 @@ let deleteAclsRequestLatency = new Trend('DeleteAclsRequestLatency', true);
 let deleteAclsRequestCount = new Counter('DeleteAclsRequestCount');
 export let deleteAcls = function (clusterId, params) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/acls?${formurlencode(params)}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'DeleteAcls'};
     let response = http.del(url, {headers, tags});
     check(response, {'DeleteAcls: Status is 200': response => response.status === 200});
@@ -81,7 +81,7 @@ let listClusterConfigsRequestLatency = new Trend('ListClusterConfigsRequestLaten
 let listClusterConfigsRequestCount = new Counter('ListClusterConfigsRequestCount');
 export let listClusterConfigs = function (clusterId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/broker-configs`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListClusterConfigs'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListClusterConfigs: Status is 200': response => response.status === 200});
@@ -107,7 +107,7 @@ let getClusterConfigRequestLatency = new Trend('GetClusterConfigRequestLatency',
 let getClusterConfigRequestCount = new Counter('GetClusterConfigRequestCount');
 export let getClusterConfig = function (clusterId, configName) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/broker-configs/${configName}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetClusterConfig'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetClusterConfig: Status is 200': response => response.status === 200});
@@ -147,7 +147,7 @@ let listBrokersRequestLatency = new Trend('ListBrokersRequestLatency', true);
 let listBrokersRequestCount = new Counter('ListBrokersRequestCount');
 export let listBrokers = function (clusterId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/brokers`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListBrokers'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListBrokers: Status is 200': response => response.status === 200});
@@ -160,7 +160,7 @@ let getBrokerRequestLatency = new Trend('GetBrokerRequestLatency', true);
 let getBrokerRequestCount = new Counter('GetBrokerRequestCount');
 export let getBroker = function (clusterId, brokerId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/brokers/${brokerId}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetBroker'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetBroker: Status is 200': response => response.status === 200});
@@ -173,7 +173,7 @@ let listBrokerConfigsRequestLatency = new Trend('ListBrokerConfigsRequestLatency
 let listBrokerConfigsRequestCount = new Counter('ListBrokerConfigsRequestCount');
 export let listBrokerConfigs = function (clusterId, brokerId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/brokers/${brokerId}/configs`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListBrokerConfigs'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListBrokerConfigs: Status is 200': response => response.status === 200});
@@ -199,7 +199,7 @@ let getBrokerConfigRequestLatency = new Trend('GetBrokerConfigRequestLatency', t
 let getBrokerConfigRequestCount = new Counter('GetBrokerConfigRequestCount');
 export let getBrokerConfig = function (clusterId, brokerId, configName) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/brokers/${brokerId}/configs/${configName}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetBrokerConfig'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetBrokerConfig: Status is 200': response => response.status === 200});
@@ -239,7 +239,7 @@ let searchReplicasByBrokerRequestLatency = new Trend('SearchReplicasByBrokerRequ
 let searchReplicasByBrokerRequestCount = new Counter('SearchReplicasByBrokerRequestCount');
 export let searchReplicasByBroker = function (clusterId, brokerId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/brokers/${brokerId}/partition-replicas`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'SearchReplicasByBroker'};
     let response = http.get(url, {headers, tags});
     check(response, {'SearchReplicasByBroker: Status is 200': response => response.status === 200});
@@ -252,7 +252,7 @@ let listConsumerGroupsRequestLatency = new Trend('ListConsumerGroupsRequestLaten
 let listConsumerGroupsRequestCount = new Counter('ListConsumerGroupsRequestCount');
 export let listConsumerGroups = function (clusterId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/consumer-groups`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListConsumerGroups'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListConsumerGroups: Status is 200': response => response.status === 200});
@@ -265,7 +265,7 @@ let getConsumerGroupRequestLatency = new Trend('GetConsumerGroupRequestLatency',
 let getConsumerGroupRequestCount = new Counter('GetConsumerGroupRequestCount');
 export let getConsumerGroup = function (clusterId, consumerGroupId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/consumer-groups/${consumerGroupId}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetConsumerGroup'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetConsumerGroup: Status is 200': response => response.status === 200});
@@ -278,7 +278,7 @@ let listConsumersRequestLatency = new Trend('ListConsumersRequestLatency', true)
 let listConsumersRequestCount = new Counter('ListConsumersRequestCount');
 export let listConsumers = function (clusterId, consumerGroupId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/consumer-groups/${consumerGroupId}/consumers`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListConsumers'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListConsumers: Status is 200': response => response.status === 200});
@@ -291,7 +291,7 @@ let getConsumerRequestLatency = new Trend('GetConsumerRequestLatency', true);
 let getConsumerRequestCount = new Counter('GetConsumerRequestCount');
 export let getConsumer = function (clusterId, consumerGroupId, consumerId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/consumer-groups/${consumerGroupId}/consumers/${consumerId}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetConsumer'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetConsumer: Status is 200': response => response.status === 200});
@@ -304,7 +304,7 @@ let listConsumerAssignmentsRequestLatency = new Trend('ListConsumerAssignmentsRe
 let listConsumerAssignmentsRequestCount = new Counter('ListConsumerAssignmentsRequestCount');
 export let listConsumerAssignments = function (clusterId, consumerGroupId, consumerId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/consumer-groups/${consumerGroupId}/consumers/${consumerId}/assignments`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListConsumerAssignments'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListConsumerAssignments: Status is 200': response => response.status === 200});
@@ -330,7 +330,7 @@ let listTopicsRequestLatency = new Trend('ListTopicsRequestLatency', true);
 let listTopicsRequestCount = new Counter('ListTopicsRequestCount');
 export let listTopics = function (clusterId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListTopics'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListTopics: Status is 200': response => response.status === 200});
@@ -345,11 +345,15 @@ export let createTopic = function (clusterId, topicName, partitionsCount, replic
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics`;
     const body =
         {
-            topic_name: topicName,
-            partitions_count: partitionsCount,
-            replication_factor: replicationFactor
+            data: {
+                attributes: {
+                    topic_name: topicName,
+                    partitions_count: partitionsCount,
+                    replication_factor: replicationFactor
+                }
+            }
         };
-    const headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
+    const headers = {'Content-Type': 'application/vnd.api+json', 'Accept': 'application/vnd.api+json'};
     const tags = {name: 'CreateTopic'};
     let response = http.post(url, JSON.stringify(body), {headers, tags});
     check(response, {'CreateTopic: Status is 201': response => response.status === 201});
@@ -362,7 +366,7 @@ let getTopicRequestLatency = new Trend('GetTopicRequestLatency', true);
 let getTopicRequestCount = new Counter('GetTopicRequestCount');
 export let getTopic = function (clusterId, topicName) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetTopic'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetTopic: Status is 200': response => response.status === 200});
@@ -388,7 +392,7 @@ let listTopicConfigsRequestLatency = new Trend('ListTopicConfigsRequestLatency',
 let listTopicConfigsRequestCount = new Counter('ListTopicConfigsRequestCount');
 export let listTopicConfigs = function (clusterId, topicName) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}/configs`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListTopicConfigs'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListTopicConfigs: Status is 200': response => response.status === 200});
@@ -414,7 +418,7 @@ let getTopicConfigRequestLatency = new Trend('GetTopicConfigRequestLatency', tru
 let getTopicConfigRequestCount = new Counter('GetTopicConfigRequestCount');
 export let getTopicConfig = function (clusterId, topicName, configName) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}/configs/${configName}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetTopicConfig'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetTopicConfig: Status is 200': response => response.status === 200});
@@ -454,7 +458,7 @@ let listPartitionsRequestLatency = new Trend('ListPartitionsRequestLatency', tru
 let listPartitionsRequestCount = new Counter('ListPartitionsRequestCount');
 export let listPartitions = function (clusterId, topicName) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}/partitions`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListPartitions'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListPartitions: Status is 200': response => response.status === 200});
@@ -480,7 +484,7 @@ let listAllReplicaReassignmentsRequestLatency = new Trend('ListAllReplicaReassig
 let listAllReplicaReassignmentsRequestCount = new Counter('ListAllReplicaReassignmentsRequestCount');
 export let listAllReplicaReassignments = function (clusterId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/-/partitions/-/reassignment`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListAllReplicaReassignments'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListAllReplicaReassignments: Status is 200': response => response.status === 200});
@@ -493,7 +497,7 @@ let searchReplicaReassignmentByTopicRequestLatency = new Trend('SearchReplicaRea
 let searchReplicaReassignmentByTopicRequestCount = new Counter('SearchReplicaReassignmentByTopicRequestCount');
 export let searchReplicaReassignmentByTopic = function (clusterId, topicName) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}/partitions/-/reassignment`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'SearchReplicaReassignmentByTopic'};
     let response = http.get(url, {headers, tags});
     check(response, {'SearchReplicaReassignmentByTopic: Status is 200': response => response.status === 200});
@@ -506,7 +510,7 @@ let getReplicaReassignmentsRequestLatency = new Trend('GetReplicaReassignmentsRe
 let getReplicaReassignmentsRequestCount = new Counter('GetReplicaReassignmentsRequestCount');
 export let getReplicaReassignments = function (clusterId, topicName, partitionId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}/partitions/${partitionId}/reassignment`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetReplicaReassignments'};
     let response = http.get(url, {headers, tags});
     // Expected to be 404. It is very hard (impossible?) to see a replica moving during test.
@@ -520,7 +524,7 @@ let listReplicasRequestLatency = new Trend('ListReplicasRequestLatency', true);
 let listReplicasRequestCount = new Counter('ListReplicasRequestCount');
 export let listReplicas = function (clusterId, topicName, partitionId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}/partitions/${partitionId}/replicas`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'ListReplicas'};
     let response = http.get(url, {headers, tags});
     check(response, {'ListReplicas: Status is 200': response => response.status === 200});
@@ -533,7 +537,7 @@ let GetReplicaRequestLatency = new Trend('GetReplicaRequestLatency', true);
 let GetReplicaRequestCount = new Counter('GetReplicaRequestCount');
 export let getReplica = function (clusterId, topicName, partitionId, brokerId) {
     const url = `${baseUrl}/v3/clusters/${clusterId}/topics/${topicName}/partitions/${partitionId}/replicas/${brokerId}`;
-    const headers = {'Accept': 'application/json'};
+    const headers = {'Accept': 'application/vnd.api+json'};
     const tags = {name: 'GetReplica'};
     let response = http.get(url, {headers, tags});
     check(response, {'GetReplica: Status is 200': response => response.status === 200});

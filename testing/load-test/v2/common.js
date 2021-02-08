@@ -13,7 +13,7 @@ export let randomByteString = function (size) {
     return str;
 }
 
-const baseUrl = 'http://localhost:9391';
+const baseUrl = 'http://localhost:8082';
 
 let produceBinaryToTopicRequestLatency = new Trend('ProduceBinaryToTopicRequestLatency', true);
 let produceBinaryToTopicRequestCount = new Counter('ProduceBinaryToTopicRequestCount');

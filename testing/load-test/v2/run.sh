@@ -45,7 +45,7 @@ for test_file in "${test_dir}"/*-test.js; do
   test_name="${test_name##*/}"
   "${envs_dir}"/minimal/run.sh -d
 
-  wait_for_server_with_timeout http://localhost:9391 180s
+  wait_for_server_with_timeout http://localhost:8082 180s
 
   k6 run "${test_dir}/${test_name}.js" --summary-export="${test_dir}/target/${test_name}.out"
 done

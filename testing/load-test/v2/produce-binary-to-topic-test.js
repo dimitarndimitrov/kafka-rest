@@ -3,12 +3,12 @@ import encoding from "k6/encoding";
 import {randomIntBetween, randomItem, uuidv4} from "https://jslib.k6.io/k6-utils/1.0.0/index.js";
 
 import {produceBinaryToTopic, randomByteString} from "./common.js";
-import {createTopic} from "../v3/common.js";
+import {createTopic, listClusters} from "../v3/common.js";
 
 export let options = {
     stages: [
         {duration: '10s', target: 2000},
-        {duration: '40s', target: 2000},
+        {duration: '180s', target: 2000},
         {duration: '10s', target: 0},
     ],
     setupTimeout: '1m',
@@ -16,6 +16,9 @@ export let options = {
 };
 
 export function setup() {
+    let listClustersResponse = listClusters();
+    let clusterId = randomItem(listClustersResponse.json().data).attributes.cluster_id;
+
     let topics = [];
     for (let i = 0; i < 10; i++) {
         let topicName = `topic-binary-${uuidv4()}`;

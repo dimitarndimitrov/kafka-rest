@@ -57,8 +57,9 @@ fi
 # Generic JVM settings you want to add
 if [ -z "$KAFKAREST_OPTS" ]; then
   # NOTE ddimitrov: Enable remote debugging, as well as dumping on OOME and preparing for JFR
-  KAFKAREST_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005\
-  -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+HeapDumpOnOutOfMemoryError"
+  KAFKAREST_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 \
+  -XX:+UnlockDiagnosticVMOptions -XX:+DebugNonSafepoints -XX:+HeapDumpOnOutOfMemoryError \
+  -XX:StartFlightRecording=filename=startup_load_test.jfr,dumponexit=true"
 fi
 
 # Which java to use

@@ -198,7 +198,7 @@ export let consumeBinary = function (consumerGroupId, consumerId) {
         consumeBinaryMessagesCount.add(response.json().length);
         consumeBinaryByteCount.add(
             response.json()
-            .reduce((total, record) => total + record.key.length + record.value.length))
+            .reduce((total, record) => total + record.key.length + record.value.length, 0));
     }
     return response;
 }

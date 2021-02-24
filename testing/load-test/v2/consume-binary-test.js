@@ -14,24 +14,30 @@ export let options = {
 };
 
 export function setup() {
-    let listClustersResponse = listClusters();
-    let clusterId = randomItem(listClustersResponse.json().data).attributes.cluster_id;
+    let clusterId = "lkc-nvx9wd";
+//    let listClustersResponse = listClusters();
+//    let clusterId = randomItem(listClustersResponse.json().data).attributes.cluster_id;
 
+    let topics = ["topic-binary-ff6cf3e6-94e2-47b7-bfa4-069ad89c516f"];
     // Use the topics/messages from produce-binary-to-topic-test.
-    let listTopicsResponse = listTopics(clusterId);
-    let topics =
-        listTopicsResponse.json().data
-        .filter(topic => topic.attributes.topic_name.startsWith('topic-binary-'))
-        .map(topic => topic.attributes.topic_name)
-        .slice(0, 10);
+//    let listTopicsResponse = listTopics(clusterId);
+//    let topics =
+//        listTopicsResponse.json().data
+//        .filter(topic => topic.attributes.topic_name.startsWith('topic-binary-'))
+//        .map(topic => topic.attributes.topic_name)
+//        .slice(0, 10);
 
+    let consumerGroupId = "consumer-group-830c72ae-cdc7-4267-aa48-64b7bf4496b3";
+    let consumerId = "consumer-04c370df-3154-414d-837c-aaab25a19fb2";
     let consumers = [];
     topics.forEach(
         topicName => {
-            let consumerGroupId = `consumer-group-${uuidv4()}`;
-            for (let i = 0; i < 10; i++) {
-                let consumerId = `consumer-${uuidv4()}`;
+//            let consumerGroupId = `consumer-group-${uuidv4()}`;
+            for (let i = 0; i < 1; i++) {
+//                let consumerId = `consumer-${uuidv4()}`;
                 consumers.push({consumerGroupId, consumerId});
+                // NOTE ddimitrov: The consumer creation and subscription should also be avoidable,
+                // although I wasn't able to do that without hitting a number of different errors.
                 createConsumer(consumerGroupId, consumerId, 'BINARY');
                 subscribeToTopic(consumerGroupId, consumerId, topicName);
             }
